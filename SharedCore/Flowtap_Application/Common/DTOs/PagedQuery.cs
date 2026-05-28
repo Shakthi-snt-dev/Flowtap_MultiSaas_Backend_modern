@@ -1,0 +1,23 @@
+namespace Flowtap_Application.Common.DTOs;
+
+public abstract class PagedQuery
+{
+    private int _pageSize = 20;
+    private int _page = 1;
+
+    public int Page
+    {
+        get => _page;
+        set => _page = value < 1 ? 1 : value;
+    }
+
+    public int PageSize
+    {
+        get => _pageSize;
+        set => _pageSize = value is < 1 or > 100 ? 20 : value;
+    }
+
+    public string? SearchTerm { get; set; }
+    public string? SortBy { get; set; }
+    public bool SortDescending { get; set; }
+}

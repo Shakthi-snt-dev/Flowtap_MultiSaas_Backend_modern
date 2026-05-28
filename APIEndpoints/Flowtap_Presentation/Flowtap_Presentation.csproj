@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\SharedCore\Flowtap_Configuration\Flowtap_Configuration.csproj" />
+    <ProjectReference Include="..\..\SharedCore\Flowtap_Middleware\Flowtap_Middleware.csproj" />
+    <ProjectReference Include="..\..\SharedCore\Flowtap_Domain\Flowtap_Domain.csproj" />
+    <ProjectReference Include="..\..\SharedCore\Flowtap_Presentation.Core\Flowtap_Presentation.Core.csproj" />
+    <ProjectReference Include="..\..\IndustryModules\Flowtap_Repair\Flowtap_Repair.csproj" />
+    <ProjectReference Include="..\..\IndustryModules\Flowtap_Food\Flowtap_Food.csproj" />
+    <ProjectReference Include="..\..\IndustryModules\Flowtap_Hotel\Flowtap_Hotel.csproj" />
+    <ProjectReference Include="..\..\IndustryModules\Flowtap_Medical\Flowtap_Medical.csproj" />
+    <ProjectReference Include="..\..\IndustryModules\Flowtap_Jewelry\Flowtap_Jewelry.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.23" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+    <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+</Project>

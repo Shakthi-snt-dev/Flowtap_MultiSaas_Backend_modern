@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Flowtap_Food_API": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:5113;http://localhost:5172"
+    }
+  }
+}

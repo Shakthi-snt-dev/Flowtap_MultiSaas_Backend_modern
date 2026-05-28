@@ -1,0 +1,84 @@
+# Standalone industry APIs — each creates full schema for its own DB
+
+# Food
+dotnet ef migrations add InitialFood --context FoodDbContext `
+  --project IndustryModules/Flowtap_Food `
+  --startup-project APIEndpoints/Flowtap_Food_API `
+  --output-dir Persistence/Migrations
+
+# Repair
+dotnet ef migrations add InitialRepair --context RepairDbContext `
+  --project IndustryModules/Flowtap_Repair `
+  --startup-project APIEndpoints/Flowtap_Repair_API `
+  --output-dir Persistence/Migrations
+
+# Hotel
+dotnet ef migrations add InitialHotel --context HotelDbContext `
+  --project IndustryModules/Flowtap_Hotel `
+  --startup-project APIEndpoints/Flowtap_Hotel_API `
+  --output-dir Persistence/Migrations
+
+# Medical
+dotnet ef migrations add InitialMedical --context MedicalDbContext `
+  --project IndustryModules/Flowtap_Medical `
+  --startup-project APIEndpoints/Flowtap_Medical_API `
+  --output-dir Persistence/Migrations
+
+# Jewelry
+dotnet ef migrations add InitialJewelry --context JewelryDbContext `
+  --project IndustryModules/Flowtap_Jewelry `
+  --startup-project APIEndpoints/Flowtap_Jewelry_API `
+  --output-dir Persistence/Migrations
+
+
+# Flowtap_Presentation — PresentationDbContext creates ALL tables in one migration
+dotnet ef migrations add InitialPresentation `
+  --context PresentationDbContext `
+  --project APIEndpoints\Flowtap_Presentation `
+  --startup-project APIEndpoints\Flowtap_Presentation `
+  --output-dir Persistence\Migrations\Presentation
+
+# ─── Apply Food database ───────────────────────────────────────────────────────
+dotnet ef database update `
+  --context FoodDbContext `
+  --project IndustryModules/Flowtap_Food `
+  --startup-project APIEndpoints/Flowtap_Food_API
+
+# ─── Apply Repair database ────────────────────────────────────────────────────
+dotnet ef database update `
+  --context RepairDbContext `
+  --project IndustryModules/Flowtap_Repair `
+  --startup-project APIEndpoints/Flowtap_Repair_API
+
+# ─── Apply Hotel database ─────────────────────────────────────────────────────
+dotnet ef database update `
+  --context HotelDbContext `
+  --project IndustryModules/Flowtap_Hotel `
+  --startup-project APIEndpoints/Flowtap_Hotel_API
+
+# ─── Apply Medical database ───────────────────────────────────────────────────
+dotnet ef database update `
+  --context MedicalDbContext `
+  --project IndustryModules/Flowtap_Medical `
+  --startup-project APIEndpoints/Flowtap_Medical_API
+
+# ─── Apply Jewelry database ───────────────────────────────────────────────────
+dotnet ef database update `
+  --context JewelryDbContext `
+  --project IndustryModules/Flowtap_Jewelry `
+  --startup-project APIEndpoints/Flowtap_Jewelry_API
+
+# ─── Apply Presentation database (unchanged) ──────────────────────────────────
+dotnet ef database update `
+  --context PresentationDbContext `
+  --project APIEndpoints/Flowtap_Presentation `
+  --startup-project APIEndpoints/Flowtap_Presentation
+
+
+
+
+  pnpm dev:repair    # → http://localhost:3005  (Repair API: port 5178)
+pnpm dev:food      # → http://localhost:3001  (Food API: port 5172)
+pnpm dev:hotel     # → http://localhost:3002  (Hotel API: port 5173)
+pnpm dev:jewellery # → http://localhost:3003  (Jewellery API: port 5174)
+pnpm dev:medical   # → http://localhost:3004  (Medical API: port 5175)

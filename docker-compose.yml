@@ -1,0 +1,88 @@
+version: '3.9'
+
+services:
+
+  # ─── API ────────────────────────────────────────────────────────────────────
+  flowtap-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: flowtap_api
+    ports:
+      - "8080:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=flowtap-db;Port=5432;Database=flowtap_db;Username=postgres;Password=postgres
+      - JwtSettings__SecretKey=docker-dev-secret-key-minimum-32-characters-long
+      - JwtSettings__Issuer=Flowtap
+      - JwtSettings__Audience=Flowtap
+      - RedisSettings__ConnectionString=flowtap-redis:6379
+      - EmailSettings__SmtpHost=mailhog
+      - EmailSettings__SmtpPort=1025
+      - EmailSettings__UseSsl=false
+    depends_on:
+      flowtap-db:
+        condition: service_healthy
+      flowtap-redis:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - flowtap-net
+
+  # ─── PostgreSQL ───────────────────────────────────────────────────────────
+  flowtap-db:
+    image: postgres:16-alpine
+    container_name: flowtap_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: flowtap_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - flowtap-net
+
+  # ─── Redis ────────────────────────────────────────────────────────────────
+  flowtap-redis:
+    image: redis:7-alpine
+    container_name: flowtap_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - flowtap-net
+
+  # ─── MailHog (local SMTP for dev) ─────────────────────────────────────────
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: flowtap_mailhog
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    restart: unless-stopped
+    networks:
+      - flowtap-net
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  flowtap-net:
+    driver: bridge

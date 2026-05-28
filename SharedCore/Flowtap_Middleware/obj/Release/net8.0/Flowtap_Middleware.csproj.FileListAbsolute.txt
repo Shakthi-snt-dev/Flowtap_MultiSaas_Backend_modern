@@ -1,0 +1,17 @@
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Middleware.deps.json
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Middleware.dll
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Middleware.pdb
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Application.dll
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Domain.dll
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Application.pdb
+D:\claude\Flowtap_Backend\Flowtap_Middleware\bin\Release\net8.0\Flowtap_Domain.pdb
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.csproj.AssemblyReference.cache
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.GeneratedMSBuildEditorConfig.editorconfig
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.AssemblyInfoInputs.cache
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.AssemblyInfo.cs
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.csproj.CoreCompileInputs.cache
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_.D6582099.Up2Date
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.dll
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\refint\Flowtap_Middleware.dll
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\Flowtap_Middleware.pdb
+D:\claude\Flowtap_Backend\Flowtap_Middleware\obj\Release\net8.0\ref\Flowtap_Middleware.dll
