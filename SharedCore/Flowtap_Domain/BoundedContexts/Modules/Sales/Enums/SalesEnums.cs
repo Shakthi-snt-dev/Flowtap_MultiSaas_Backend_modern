@@ -4,7 +4,7 @@ public enum ClientType { Individual = 1, Company = 2 }
 
 public enum SaleItemType { Service = 1, Part = 2, Product = 3 }
 
-public enum SaleSource { POS = 1, Ticket = 2 }
+public enum SaleSource { POS = 1, Ticket = 2, FoodOrder = 3 }
 
 public enum SaleStatus { Draft = 1, Completed = 2, Cancelled = 3, Refunded = 4 }
 

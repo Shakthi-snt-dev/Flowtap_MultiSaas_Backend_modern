@@ -34,7 +34,9 @@ public record CreateSaleItemDto(
     decimal TaxPercent,
     decimal DiscountPercent,
     decimal DiscountAmount,
-    string? SerialNumber = null);   // populated when item was added via serial scan
+    string? SerialNumber = null,   // populated when item was added via serial scan
+    Guid?   VariantId    = null,   // food: which variant (Large, Spicy, etc.) — null for non-food
+    string? Notes        = null);  // food: per-item special instructions ("no onion") — null for non-food
 
 public record CreateSalePaymentDto(
     string Method,              // Cash | Card | UPI | NetBanking | Wallet

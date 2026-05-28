@@ -4,8 +4,8 @@ namespace Flowtap_Domain.BoundedContexts.Modules.Sales.Entities;
 public class Sale : TenantEntity
 {
     public Guid LocationId { get; set; }
-    public Guid ClientId { get; set; }
-    public Client Client { get; set; } = null!;
+    public Guid? ClientId { get; set; }                  // null = walk-in customer (food/retail)
+    public Client? Client { get; set; }
     public string? TransactionNumber { get; set; }
     public SaleSource Source { get; set; } = SaleSource.POS;
     public Guid? TicketId { get; set; }

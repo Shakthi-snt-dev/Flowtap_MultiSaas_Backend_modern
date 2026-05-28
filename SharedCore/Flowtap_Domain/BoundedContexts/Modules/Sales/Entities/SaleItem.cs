@@ -15,4 +15,6 @@ public class SaleItem : BaseEntity
     public decimal DiscountAmount { get; set; }
     public decimal Total { get; set; }
     public string? SerialNumber { get; set; }
+    public Guid? VariantId { get; set; }        // which variant was sold (Large, Spicy, etc.)
+    public string? Notes { get; set; }          // item-level special instructions ("no onion")
 }

@@ -34,10 +34,10 @@ public static class FoodIceCreamSeeder
 
         // Sample Products
         context.Products.AddRange(
-            new Product { CompanyId = companyId, CategoryId = scoopsCat.Id,    Name = "Belgian Chocolate Scoop (Single)",    Kind = ProductKind.Accessory, SKU = "ICE-SC-BCH", DefaultCostPrice = 0.50m, DefaultSalePrice = 2.50m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published },
-            new Product { CompanyId = companyId, CategoryId = scoopsCat.Id,    Name = "Vanilla Bean Scoop (Single)",         Kind = ProductKind.Accessory, SKU = "ICE-SC-VNL", DefaultCostPrice = 0.40m, DefaultSalePrice = 2.20m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published },
-            new Product { CompanyId = companyId, CategoryId = sundaesCat.Id,   Name = "Hot Fudge Brownie Sundae",            Kind = ProductKind.Accessory, SKU = "ICE-SN-HFB", DefaultCostPrice = 1.50m, DefaultSalePrice = 7.50m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published },
-            new Product { CompanyId = companyId, CategoryId = milkshakesCat.Id, Name = "Strawberry Milkshake (Large)",          Kind = ProductKind.Accessory, SKU = "ICE-MK-STR", DefaultCostPrice = 1.20m, DefaultSalePrice = 5.99m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published }
+            new Product { CompanyId = companyId, CategoryId = scoopsCat.Id,    Name = "Belgian Chocolate Scoop (Single)",    Kind = ProductKind.FinalProduct, SKU = "ICE-SC-BCH", DefaultCostPrice = 0.50m, DefaultSalePrice = 2.50m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published },
+            new Product { CompanyId = companyId, CategoryId = scoopsCat.Id,    Name = "Vanilla Bean Scoop (Single)",         Kind = ProductKind.FinalProduct, SKU = "ICE-SC-VNL", DefaultCostPrice = 0.40m, DefaultSalePrice = 2.20m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published },
+            new Product { CompanyId = companyId, CategoryId = sundaesCat.Id,   Name = "Hot Fudge Brownie Sundae",            Kind = ProductKind.FinalProduct, SKU = "ICE-SN-HFB", DefaultCostPrice = 1.50m, DefaultSalePrice = 7.50m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published },
+            new Product { CompanyId = companyId, CategoryId = milkshakesCat.Id, Name = "Strawberry Milkshake (Large)",          Kind = ProductKind.FinalProduct, SKU = "ICE-MK-STR", DefaultCostPrice = 1.20m, DefaultSalePrice = 5.99m,  IsSerialized = false, IsUniversal = true, IsActive = true, PublishStatus = ProductPublishStatus.Published }
         );
     }
 }

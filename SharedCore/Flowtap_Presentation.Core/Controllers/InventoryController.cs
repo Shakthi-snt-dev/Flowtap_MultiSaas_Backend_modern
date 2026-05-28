@@ -7,6 +7,7 @@ using Flowtap_Application.Features.Inventory.Commands.TransferStock;
 using Flowtap_Application.Features.Inventory.Commands.CreateStockBatch;
 using Flowtap_Application.Features.Inventory.Commands.UpdateStockBatch;
 using Flowtap_Application.Features.Inventory.Queries.GetReorderAlerts;
+using Flowtap_Application.Features.Inventory.Queries.GetReorderRules;
 using Flowtap_Application.Features.Inventory.Queries.GetStockLevels;
 using Flowtap_Application.Features.Inventory.Queries.GetTransfers;
 using Flowtap_Application.Features.Inventory.Queries.GetWriteOffs;
@@ -47,6 +48,10 @@ public class InventoryController(ISender sender) : ApiController(sender)
         => FromResult(await Sender.Send(command with { Id = id, CompanyId = CurrentTenantId }, ct));
 
     // ── Reorder Rules ──────────────────────────────────────────────────────────
+    [HttpGet("reorder-rules")]
+    public async Task<IActionResult> GetReorderRules(CancellationToken ct)
+        => Ok(await Sender.Send(new GetReorderRulesQuery(CurrentTenantId), ct));
+
     [HttpPost("reorder-rules")]
     public async Task<IActionResult> CreateReorderRule([FromBody] CreateReorderRuleCommand command, CancellationToken ct)
         => Created(await Sender.Send(command, ct));

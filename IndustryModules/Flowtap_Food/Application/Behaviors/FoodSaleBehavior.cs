@@ -48,7 +48,8 @@ public class FoodSaleBehavior(IFoodDbContext db)
             {
                 ProductId   = i.ProductId,
                 ProductName = i.ProductName,
-                Quantity    = i.Quantity
+                Quantity    = i.Quantity,
+                Notes       = i.Notes,           // special instructions ("no onion") → sent to kitchen
             }).ToList()
         };
 

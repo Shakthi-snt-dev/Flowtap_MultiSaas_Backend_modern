@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "coeCX+NXy4Y=",
+  "dgSpecHash": "+tCaCtbBV8I=",
   "success": true,
-  "projectFilePath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj",
+  "projectFilePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -80,9 +80,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Flowtap_Infrastructure depends on System.IdentityModel.Tokens.Jwt (>= 8.3.2) but System.IdentityModel.Tokens.Jwt 8.3.2 was not found. System.IdentityModel.Tokens.Jwt 8.4.0 was resolved instead.",
-      "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj",
+      "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj",
+      "filePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"

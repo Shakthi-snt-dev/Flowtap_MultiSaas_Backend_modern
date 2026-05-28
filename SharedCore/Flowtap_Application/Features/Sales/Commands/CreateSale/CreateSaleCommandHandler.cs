@@ -49,6 +49,8 @@ public class CreateSaleCommandHandler(IApplicationDbContext db, IDateTimeService
                 DiscountAmount  = i.DiscountAmount,
                 Total           = Math.Round(lineTotal, 2),
                 SerialNumber    = i.SerialNumber,
+                VariantId       = i.VariantId,
+                Notes           = i.Notes,
             };
         }).ToList();
 
@@ -69,6 +71,9 @@ public class CreateSaleCommandHandler(IApplicationDbContext db, IDateTimeService
             TransactionNumber    = $"INV-{count + 1:D6}",
             Source               = source,
             TicketId             = request.TicketId,
+            // Food industry — null for Repair/Retail, populated for Food
+            TableId              = request.TableId,
+            FoodOrderType        = request.FoodOrderType,
             SubTotal             = subTotal,
             DiscountAmount       = discountTotal,
             TaxAmount            = taxAmount,

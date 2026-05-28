@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
 using System.Threading.RateLimiting;
 
 namespace Flowtap_Configuration.DependencyInjection;
@@ -20,7 +21,12 @@ public static class PresentationServiceExtensions
     public static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers()
-                .AddApplicationPart(System.Reflection.Assembly.Load("Flowtap_Presentation.Core"));
+                .AddApplicationPart(System.Reflection.Assembly.Load("Flowtap_Presentation.Core"))
+                .AddJsonOptions(o =>
+                {
+                    // Accept enum values as strings (e.g. "DineIn", "Final") — integers still work
+                    o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
         services.AddSignalR();
 
         // ── Permission-based authorization ────────────────────────────────────

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hEn7/Z9Xv1A=",
+  "dgSpecHash": "WJgd8YzTXp8=",
   "success": true,
-  "projectFilePath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+  "projectFilePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Rajan\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
@@ -82,9 +82,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Flowtap_Infrastructure depends on System.IdentityModel.Tokens.Jwt (>= 8.3.2) but System.IdentityModel.Tokens.Jwt 8.3.2 was not found. System.IdentityModel.Tokens.Jwt 8.4.0 was resolved instead.",
-      "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+      "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+      "filePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"
@@ -94,9 +94,9 @@
       "code": "NU1902",
       "level": "Warning",
       "message": "Package 'MailKit' 4.9.0 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-9j88-vvj5-vhgr",
-      "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+      "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
+      "filePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Infrastructure\\Flowtap_Infrastructure.csproj",
       "libraryId": "MailKit",
       "targetGraphs": [
         "net8.0"

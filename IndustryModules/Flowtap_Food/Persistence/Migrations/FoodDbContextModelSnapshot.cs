@@ -3196,11 +3196,6 @@ namespace Flowtap_Food.Persistence.Migrations
                     b.Property<int>("PaymentStatus")
                         .HasColumnType("integer");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
-
                     b.Property<string>("ShippingMethod")
                         .HasColumnType("text");
 
@@ -3237,7 +3232,15 @@ namespace Flowtap_Food.Persistence.Migrations
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uuid");
 
+                    b.Property<uint>("xmin")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("SupplierId");
 
@@ -3996,7 +3999,7 @@ namespace Flowtap_Food.Persistence.Migrations
                     b.Property<Guid?>("CashierEmployeeId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("ClientId")
+                    b.Property<Guid?>("ClientId")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("CompanyId")
@@ -4030,11 +4033,6 @@ namespace Flowtap_Food.Persistence.Migrations
                     b.Property<string>("RefundReason")
                         .HasColumnType("text");
 
-                    b.Property<byte[]>("RowVersion")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("bytea");
-
                     b.Property<int>("Source")
                         .HasColumnType("integer");
 
@@ -4064,6 +4062,12 @@ namespace Flowtap_Food.Persistence.Migrations
 
                     b.Property<Guid?>("UpdatedBy")
                         .HasColumnType("uuid");
+
+                    b.Property<uint>("xmin")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("xid")
+                        .HasColumnName("xmin");
 
                     b.HasKey("Id");
 
@@ -4115,6 +4119,9 @@ namespace Flowtap_Food.Persistence.Migrations
                     b.Property<decimal>("DiscountPercent")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("Notes")
+                        .HasColumnType("text");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
@@ -4142,6 +4149,9 @@ namespace Flowtap_Food.Persistence.Migrations
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(18,4)");
+
+                    b.Property<Guid?>("VariantId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -5532,9 +5542,7 @@ namespace Flowtap_Food.Persistence.Migrations
                 {
                     b.HasOne("Flowtap_Domain.BoundedContexts.Modules.Sales.Entities.Client", "Client")
                         .WithMany("Sales")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
                 });

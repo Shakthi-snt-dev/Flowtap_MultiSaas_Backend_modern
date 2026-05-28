@@ -63,3 +63,15 @@ D:\Git\Flowtap_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap
 D:\Git\Flowtap_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\refint\Flowtap_Domain.dll
 D:\Git\Flowtap_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.pdb
 D:\Git\Flowtap_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\ref\Flowtap_Domain.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\bin\Debug\net8.0\Flowtap_Domain.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\bin\Debug\net8.0\Flowtap_Domain.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\bin\Debug\net8.0\Flowtap_Domain.pdb
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.AssemblyInfoInputs.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.AssemblyInfo.cs
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.csproj.CoreCompileInputs.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.sourcelink.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\refint\Flowtap_Domain.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\Flowtap_Domain.pdb
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Domain\obj\Debug\net8.0\ref\Flowtap_Domain.dll

@@ -2,6 +2,7 @@ using AutoMapper;
 using Flowtap_Application.Common.DTOs;
 using Flowtap_Application.Common.Interfaces;
 using Flowtap_Application.Features.Inventory.DTOs;
+using Flowtap_Domain.BoundedContexts.Modules.Inventory.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +27,11 @@ public class GetProductsQueryHandler(IApplicationDbContext db, ICurrentUserServi
 
         if (!string.IsNullOrWhiteSpace(request.Search))
             query = query.Where(p => p.Name.Contains(request.Search) || p.SKU.Contains(request.Search));
+
+        // Industry-specific kind filter — food POS sends "FinalProduct"; null = show all (Repair/Retail default)
+        if (!string.IsNullOrWhiteSpace(request.Kind) &&
+            Enum.TryParse<ProductKind>(request.Kind, ignoreCase: true, out var kindFilter))
+            query = query.Where(p => p.Kind == kindFilter);
 
         var total = await query.CountAsync(ct);
         var items = await query

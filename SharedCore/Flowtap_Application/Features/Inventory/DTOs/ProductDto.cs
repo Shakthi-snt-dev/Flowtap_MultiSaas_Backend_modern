@@ -39,6 +39,17 @@ public record ReorderAlertDto(
     Guid Id, Guid ProductId, string ProductName, Guid WarehouseId,
     int CurrentQuantity, int ReorderLevel, string Severity, bool IsHandled);
 
+public record ReorderRuleDto(
+    Guid   Id,
+    Guid   ProductId,
+    string ProductName,
+    Guid   WarehouseId,
+    string WarehouseName,
+    decimal MinimumQuantity,
+    decimal ReorderQuantity,
+    int?   LeadTimeDays,
+    bool   IsActive);
+
 public record ProductLocationPriceDto(
     Guid Id, Guid ProductId, Guid LocationId, decimal CostPrice,
     decimal SalePrice, decimal? MRP, bool IsTaxIncluded, string Status, bool IsActive,

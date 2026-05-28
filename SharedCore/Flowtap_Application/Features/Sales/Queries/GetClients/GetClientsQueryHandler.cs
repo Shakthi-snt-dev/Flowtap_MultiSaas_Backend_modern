@@ -38,7 +38,7 @@ public class GetClientsQueryHandler(IApplicationDbContext db)
         // Batch load sales stats for all clients on this page
         var salesStats = await db.Sales
             .Where(s => s.CompanyId == request.CompanyId
-                     && clientIds.Contains(s.ClientId)
+                     && s.ClientId != null && clientIds.Contains(s.ClientId.Value)
                      && s.Status == SaleStatus.Completed)
             .GroupBy(s => s.ClientId)
             .Select(g => new
@@ -54,13 +54,13 @@ public class GetClientsQueryHandler(IApplicationDbContext db)
         var paymentStats = await db.Payments
             .Where(p => p.Sale != null
                      && p.Sale.CompanyId == request.CompanyId
-                     && clientIds.Contains(p.Sale.ClientId))
+                     && p.Sale.ClientId != null && clientIds.Contains(p.Sale.ClientId.Value))
             .GroupBy(p => p.Sale!.ClientId)
             .Select(g => new { ClientId = g.Key, TotalPaid = g.Sum(p => p.Amount) })
             .ToListAsync(ct);
 
-        var statsMap   = salesStats.ToDictionary(s => s.ClientId);
-        var paymentMap = paymentStats.ToDictionary(p => p.ClientId);
+        var statsMap   = salesStats.ToDictionary(s => s.ClientId!.Value);
+        var paymentMap = paymentStats.ToDictionary(p => p.ClientId!.Value);
 
         var dtos = items.Select(c =>
         {

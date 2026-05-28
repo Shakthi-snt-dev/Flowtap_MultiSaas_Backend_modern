@@ -8,7 +8,7 @@ public enum InventoryTransactionType
 
 public enum InventoryWriteOffType { Damaged = 1, Scrap = 2, Expired = 3 }
 
-public enum ProductKind { Device = 1, Accessory = 2, SparePart = 3, RawMaterial = 4 }
+public enum ProductKind { Device = 1, Accessory = 2, SparePart = 3, RawMaterial = 4, FinalProduct = 5 }
 
 public enum ProductPublishStatus { Draft = 1, Published = 2, Archived = 3 }
 

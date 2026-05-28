@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Flowtap_Hotel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d4e9de84f91b8901e2766ed35cb1ef3e11c92bb1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+191ef98d8c40220ecf11b195878fd6cff598c6fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("Flowtap_Hotel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Flowtap_Hotel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,5 +1,5 @@
 {
-  "Flowtap_Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Application",
-  "Flowtap_Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Domain",
-  "Flowtap_Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Infrastructure"
+  "Flowtap_Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Application",
+  "Flowtap_Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Domain",
+  "Flowtap_Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Infrastructure"
 }
