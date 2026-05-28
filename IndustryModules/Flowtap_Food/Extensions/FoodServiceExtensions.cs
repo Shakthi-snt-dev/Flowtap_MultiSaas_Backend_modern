@@ -2,6 +2,7 @@ using Flowtap_Application.Common.DTOs;
 using Flowtap_Application.Common.Interfaces;
 using Flowtap_Application.Features.Sales.Commands.CreateSale;
 using Flowtap_Food.Application.Behaviors;
+using Flowtap_Food.BackgroundJobs;
 using Flowtap_Food.DbContext;
 using Flowtap_Food.Industry;
 using Flowtap_Infrastructure.Persistence;
@@ -48,6 +49,9 @@ public static class FoodServiceExtensions
 
         // Industry seed service
         services.AddScoped<IIndustryDataSeeder, FoodSeedService>();
+
+        // Kitchen stock alert background job — checks StockAlertRules every 30 min
+        services.AddHostedService<FoodStockCheckService>();
 
         return services;
     }

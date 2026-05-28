@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cTtbGlYL6JY=",
+  "dgSpecHash": "P8XFK/A4dh0=",
   "success": true,
-  "projectFilePath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj",
+  "projectFilePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -100,9 +100,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Flowtap_Infrastructure depends on System.IdentityModel.Tokens.Jwt (>= 8.3.2) but System.IdentityModel.Tokens.Jwt 8.3.2 was not found. System.IdentityModel.Tokens.Jwt 8.4.0 was resolved instead.",
-      "projectPath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj",
+      "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj",
+      "filePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"

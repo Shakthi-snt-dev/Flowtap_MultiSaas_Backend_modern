@@ -117,6 +117,11 @@ public static class InfrastructureServiceExtensions
         services.AddScoped<IPasswordHasher, PasswordHasherService>();
         services.AddScoped<IEmailService, EmailService>();
         services.AddScoped<ISmsService, SmsService>();
+        services.AddScoped<IWhatsAppService, WhatsAppService>();
+
+        // Named HttpClients for external messaging APIs
+        services.AddHttpClient("Twilio");    // SMS via Twilio REST API
+        services.AddHttpClient("WhatsApp"); // WhatsApp via Meta Cloud API
         services.AddScoped<ICacheService, CacheService>();
         services.AddScoped<IFileStorageService, FileStorageService>();
         services.AddScoped<IDateTimeService, DateTimeService>();
@@ -137,6 +142,7 @@ public static class InfrastructureServiceExtensions
 
         services.AddHostedService<EmailDispatchService>();
         services.AddHostedService<SmsDispatchService>();
+        services.AddHostedService<WhatsAppDispatchService>();
         services.AddHostedService<ReorderCheckService>();
         services.AddHostedService<SubscriptionExpiryService>();
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "xmVqOiyvk5k=",
+  "dgSpecHash": "ztL053P7roA=",
   "success": true,
-  "projectFilePath": "D:\\Git\\Flowtap_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
+  "projectFilePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Rajan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -106,9 +106,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "Microsoft.IdentityModel.Protocols.OpenIdConnect 7.1.2 depends on System.IdentityModel.Tokens.Jwt (>= 8.3.2) but System.IdentityModel.Tokens.Jwt 8.3.2 was not found. System.IdentityModel.Tokens.Jwt 8.4.0 was resolved instead.",
-      "projectPath": "D:\\Git\\Flowtap_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
+      "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
       "warningLevel": 1,
-      "filePath": "D:\\Git\\Flowtap_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
+      "filePath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
       "libraryId": "System.IdentityModel.Tokens.Jwt",
       "targetGraphs": [
         "net8.0"

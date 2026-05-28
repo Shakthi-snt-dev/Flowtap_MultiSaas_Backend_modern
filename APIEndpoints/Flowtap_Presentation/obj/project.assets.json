@@ -1889,7 +1889,6 @@
           "Flowtap_Domain": "1.0.0",
           "Flowtap_Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
         },
         "compile": {
@@ -1911,7 +1910,6 @@
           "Flowtap_Domain": "1.0.0",
           "Flowtap_Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
         },
         "compile": {
@@ -1958,7 +1956,6 @@
           "Flowtap_Domain": "1.0.0",
           "Flowtap_Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
         },
         "compile": {
@@ -1980,7 +1977,6 @@
           "Flowtap_Domain": "1.0.0",
           "Flowtap_Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
         },
         "compile": {
@@ -2032,7 +2028,6 @@
           "Flowtap_Domain": "1.0.0",
           "Flowtap_Infrastructure": "1.0.0",
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore": "8.0.11",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
         },
@@ -5110,11 +5105,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\Flowtap_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
+      "projectUniqueName": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
       "projectName": "Flowtap_Presentation",
-      "projectPath": "D:\\Git\\Flowtap_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
+      "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\Flowtap_Presentation.csproj",
       "packagesPath": "C:\\Users\\Rajan\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\Flowtap_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\obj\\",
+      "outputPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\APIEndpoints\\Flowtap_Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -5136,32 +5131,32 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Food\\Flowtap_Food.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Food\\Flowtap_Food.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Food\\Flowtap_Food.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Food\\Flowtap_Food.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Hotel\\Flowtap_Hotel.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Jewelry\\Flowtap_Jewelry.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Jewelry\\Flowtap_Jewelry.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Jewelry\\Flowtap_Jewelry.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Jewelry\\Flowtap_Jewelry.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Medical\\Flowtap_Medical.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Medical\\Flowtap_Medical.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Medical\\Flowtap_Medical.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Medical\\Flowtap_Medical.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Repair\\Flowtap_Repair.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\IndustryModules\\Flowtap_Repair\\Flowtap_Repair.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Repair\\Flowtap_Repair.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\IndustryModules\\Flowtap_Repair\\Flowtap_Repair.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Configuration\\Flowtap_Configuration.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Configuration\\Flowtap_Configuration.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Configuration\\Flowtap_Configuration.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Configuration\\Flowtap_Configuration.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Domain\\Flowtap_Domain.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Domain\\Flowtap_Domain.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Domain\\Flowtap_Domain.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Domain\\Flowtap_Domain.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Middleware\\Flowtap_Middleware.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Middleware\\Flowtap_Middleware.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Middleware\\Flowtap_Middleware.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Middleware\\Flowtap_Middleware.csproj"
             },
-            "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj": {
-              "projectPath": "D:\\Git\\Flowtap_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj"
+            "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj": {
+              "projectPath": "D:\\Git\\Flowtap_MultiSaas_Backend_modern\\SharedCore\\Flowtap_Presentation.Core\\Flowtap_Presentation.Core.csproj"
             }
           }
         }
