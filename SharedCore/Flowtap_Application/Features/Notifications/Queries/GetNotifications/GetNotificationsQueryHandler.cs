@@ -12,44 +12,31 @@ public class GetNotificationsQueryHandler(IApplicationDbContext db)
     public async Task<Result<PaginatedList<NotificationListItemDto>>> Handle(
         GetNotificationsQuery request, CancellationToken ct)
     {
-        // Resolve company employee emails/phones for filtering
-        var companyContacts = await db.Employees
-            .Where(e => e.CompanyId == request.CompanyId)
-            .Join(db.UserProfiles,
-                  e => e.UserAccountId,
-                  p => p.UserAccountId,
-                  (e, p) => new { p.Email, p.Phone })
-            .ToListAsync(ct);
-
-        var emails = companyContacts.Select(c => c.Email).Where(e => !string.IsNullOrWhiteSpace(e)).ToHashSet();
-        var phones = companyContacts.Select(c => c.Phone).Where(p => !string.IsNullOrWhiteSpace(p)).ToHashSet();
-
-        // Pull all recent notifications — we filter in-memory to avoid complex EF OR queries
-        var baseQuery = db.NotificationQueues.AsQueryable();
+        var query = db.NotificationQueues
+            .Where(n => n.CompanyId == request.CompanyId);
 
         if (!string.IsNullOrWhiteSpace(request.Channel))
-            baseQuery = baseQuery.Where(n => n.Type == request.Channel);
+            query = query.Where(n => n.Type == request.Channel);
 
         if (!string.IsNullOrWhiteSpace(request.Status))
-            baseQuery = baseQuery.Where(n => n.Status == request.Status);
+            query = query.Where(n => n.Status == request.Status);
 
-        var allItems = await baseQuery
+        // Note: Payload is jsonb — LIKE is not supported on jsonb in PostgreSQL.
+        // Subject is text and is sufficient: Email alerts always have "[Kitchen Alert]" in Subject.
+        // SMS/WhatsApp alerts have empty Subject but are found via the channel filter.
+        if (!string.IsNullOrWhiteSpace(request.SubjectContains))
+            query = query.Where(n => n.Subject.Contains(request.SubjectContains));
+
+        var totalCount = await query.CountAsync(ct);
+
+        var paged = await query
             .OrderByDescending(n => n.CreatedAt)
-            .Select(n => new NotificationListItemDto(
-                n.Id, n.Type, n.Recipient, n.Subject,
-                n.Status, n.Error, n.CreatedAt, n.SentAt))
-            .ToListAsync(ct);
-
-        // Filter to this company's recipients
-        var filtered = allItems
-            .Where(n => emails.Contains(n.Recipient) || phones.Contains(n.Recipient))
-            .ToList();
-
-        var totalCount = filtered.Count;
-        var paged = filtered
             .Skip((request.Page - 1) * request.PageSize)
             .Take(request.PageSize)
-            .ToList();
+            .Select(n => new NotificationListItemDto(
+                n.Id, n.Type, n.Recipient, n.Subject, n.Payload,
+                n.Status, n.Error, n.CreatedAt, n.SentAt, n.RetryCount))
+            .ToListAsync(ct);
 
         return Result<PaginatedList<NotificationListItemDto>>.Success(
             new PaginatedList<NotificationListItemDto>(paged, totalCount, request.Page, request.PageSize));

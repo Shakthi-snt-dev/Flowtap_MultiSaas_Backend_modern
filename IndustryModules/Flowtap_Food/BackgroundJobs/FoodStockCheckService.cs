@@ -1,5 +1,6 @@
 using Flowtap_Application.Common.Interfaces;
 using Flowtap_Domain.BoundedContexts.Core.Organization.Entities;
+using Flowtap_Food.Application.StockAlerts;
 using Flowtap_Food.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,55 +76,83 @@ public class FoodStockCheckService(
             if (currentQty >= rule.Threshold)
                 continue;   // stock is fine
 
-            // ── Get product name for the notification message ────────────────
+            // ── Get product name + kind for the notification message ────────────
             var product = await coreDb.Products
-                .Select(p => new { p.Id, p.Name })
+                .Select(p => new { p.Id, p.Name, Kind = p.Kind.ToString() })
                 .FirstOrDefaultAsync(p => p.Id == rule.ProductId, ct);
 
             var productName = product?.Name ?? rule.ProductId.ToString();
+            var productKind = product?.Kind ?? "RawMaterial";
 
             logger.LogInformation(
-                "Food stock alert triggered for Product {ProductName}: {CurrentQty} < {Threshold} {Unit}",
-                productName, currentQty, rule.Threshold, rule.Unit);
+                "Food stock alert triggered for Product {ProductName} ({Kind}): {CurrentQty} < {Threshold} {Unit}",
+                productName, productKind, currentQty, rule.Threshold, rule.Unit);
 
-            // ── Queue notifications based on rule settings ──────────────────
-            if (rule.SendEmail && !string.IsNullOrWhiteSpace(rule.RecipientContact))
+            // ── Resolve contacts from the rule's NotifyRoles (each contact carries its role label) ──
+            var roleContacts = await StockAlertRoleResolver.ResolveAsync(rule, coreDb, ct);
+
+            // Explicit recipients (manually typed) — label them "Additional"
+            var explicitEmails = rule.GetEmailRecipients()
+                .Select(e => new ResolvedContact(e, "Additional")).ToList();
+            var explicitPhones = rule.GetSmsRecipients()
+                .Select(p => new ResolvedContact(p, "Additional")).ToList();
+            var explicitWa = rule.GetWhatsAppRecipients()
+                .Select(p => new ResolvedContact(p, "Additional")).ToList();
+
+            // Merge explicit + role contacts, deduplicate by address
+            var emailList = explicitEmails
+                .Concat(rule.SendEmail ? roleContacts.Emails : [])
+                .DistinctBy(c => c.Address.ToLowerInvariant()).ToList();
+            var phoneList = explicitPhones
+                .Concat(rule.SendSms ? roleContacts.Phones : [])
+                .DistinctBy(c => c.Address.ToLowerInvariant()).ToList();
+            var waList = explicitWa
+                .Concat(rule.SendWhatsApp ? roleContacts.Phones : [])
+                .DistinctBy(c => c.Address.ToLowerInvariant()).ToList();
+
+            // ── Queue one notification per recipient per enabled channel ──────────
+            if (rule.SendEmail)
             {
-                coreDb.NotificationQueues.Add(new NotificationQueue
-                {
-                    CompanyId = rule.CompanyId,
-                    Type      = "Email",
-                    Recipient = rule.RecipientContact,
-                    Subject   = $"[Kitchen Alert] {productName} is running low",
-                    Payload   = BuildEmailBody(productName, currentQty, rule.Threshold, rule.Unit),
-                    Status    = "Pending",
-                });
+                foreach (var contact in emailList)
+                    coreDb.NotificationQueues.Add(new NotificationQueue
+                    {
+                        CompanyId = rule.CompanyId,
+                        Type      = "Email",
+                        Recipient = contact.Address,
+                        Subject   = $"[Kitchen Alert | {contact.RoleLabel}] {productName} is running low",
+                        Payload   = BuildEmailBody(productName, currentQty, rule.Threshold, rule.Unit, contact.RoleLabel),
+                        Status    = "Pending",
+                    });
             }
 
-            if (rule.SendSms && !string.IsNullOrWhiteSpace(rule.RecipientContact))
+            if (rule.SendSms)
             {
-                coreDb.NotificationQueues.Add(new NotificationQueue
-                {
-                    CompanyId = rule.CompanyId,
-                    Type      = "Sms",
-                    Recipient = rule.RecipientContact,
-                    Subject   = string.Empty,
-                    Payload   = $"Kitchen Alert: {productName} is low ({currentQty} {rule.Unit} remaining, threshold: {rule.Threshold} {rule.Unit}). Please restock.",
-                    Status    = "Pending",
-                });
+                foreach (var contact in phoneList)
+                    coreDb.NotificationQueues.Add(new NotificationQueue
+                    {
+                        CompanyId = rule.CompanyId,
+                        Type      = "Sms",
+                        Recipient = contact.Address,
+                        Subject   = $"[Kitchen Alert | {contact.RoleLabel}]",
+                        Payload   = $"Kitchen Alert ({contact.RoleLabel}): {productName} is low " +
+                                    $"({currentQty} {rule.Unit} remaining, threshold: {rule.Threshold} {rule.Unit}). Please restock.",
+                        Status    = "Pending",
+                    });
             }
 
-            if (rule.SendWhatsApp && !string.IsNullOrWhiteSpace(rule.RecipientContact))
+            if (rule.SendWhatsApp)
             {
-                coreDb.NotificationQueues.Add(new NotificationQueue
-                {
-                    CompanyId = rule.CompanyId,
-                    Type      = "WhatsApp",
-                    Recipient = rule.RecipientContact,
-                    Subject   = string.Empty,
-                    Payload   = $"🚨 *Kitchen Stock Alert*\n*{productName}* is running low.\nCurrent: {currentQty} {rule.Unit}\nThreshold: {rule.Threshold} {rule.Unit}\nPlease restock immediately.",
-                    Status    = "Pending",
-                });
+                foreach (var contact in waList)
+                    coreDb.NotificationQueues.Add(new NotificationQueue
+                    {
+                        CompanyId = rule.CompanyId,
+                        Type      = "WhatsApp",
+                        Recipient = contact.Address,
+                        Subject   = $"[Kitchen Alert | {contact.RoleLabel}]",
+                        Payload   = $"🚨 *Kitchen Stock Alert* ({contact.RoleLabel})\n*{productName}* is running low.\n" +
+                                    $"Current: {currentQty} {rule.Unit}\nThreshold: {rule.Threshold} {rule.Unit}\nPlease restock immediately.",
+                        Status    = "Pending",
+                    });
             }
 
             // ── Update last triggered timestamp ──────────────────────────────
@@ -135,7 +164,7 @@ public class FoodStockCheckService(
         await foodDb.SaveChangesAsync(ct);
     }
 
-    private static string BuildEmailBody(string productName, decimal current, decimal threshold, string unit) => $"""
+    private static string BuildEmailBody(string productName, decimal current, decimal threshold, string unit, string roleLabel = "") => $"""
         <h3 style="color:#e65c00;">🚨 Kitchen Stock Alert</h3>
         <table style="border-collapse:collapse;font-family:sans-serif;">
           <tr><td style="padding:4px 12px 4px 0;color:#555;">Product</td><td><strong>{productName}</strong></td></tr>

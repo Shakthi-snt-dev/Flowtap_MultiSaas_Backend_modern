@@ -1136,6 +1136,9 @@ namespace Flowtap_Food.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
+                    b.Property<Guid?>("ManagerEmployeeId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -4719,17 +4722,20 @@ namespace Flowtap_Food.Persistence.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("EmailRecipients")
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastTriggeredAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("NotifyRoles")
+                        .HasColumnType("text");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
-
-                    b.Property<string>("RecipientContact")
-                        .HasColumnType("text");
 
                     b.Property<bool>("SendEmail")
                         .HasColumnType("boolean");
@@ -4739,6 +4745,9 @@ namespace Flowtap_Food.Persistence.Migrations
 
                     b.Property<bool>("SendWhatsApp")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("SmsRecipients")
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Threshold")
                         .HasColumnType("numeric");
@@ -4755,6 +4764,9 @@ namespace Flowtap_Food.Persistence.Migrations
 
                     b.Property<Guid>("WarehouseId")
                         .HasColumnType("uuid");
+
+                    b.Property<string>("WhatsAppRecipients")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

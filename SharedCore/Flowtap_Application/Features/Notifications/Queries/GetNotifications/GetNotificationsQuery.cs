@@ -5,9 +5,10 @@ using MediatR;
 namespace Flowtap_Application.Features.Notifications.Queries.GetNotifications;
 
 public record GetNotificationsQuery(
-    Guid CompanyId,
-    string? Channel = null,   // "Email" | "Sms"
-    string? Status = null,    // "Pending" | "Sent" | "Failed"
-    int Page = 1,
-    int PageSize = 30
+    Guid    CompanyId,
+    string? Channel        = null,   // "Email" | "Sms" | "WhatsApp"
+    string? Status         = null,   // "Pending" | "Sent" | "Failed"
+    string? SubjectContains = null,  // e.g. "[Kitchen Alert]" to show only stock alerts
+    int     Page           = 1,
+    int     PageSize       = 30
 ) : IRequest<Result<PaginatedList<NotificationListItemDto>>>;

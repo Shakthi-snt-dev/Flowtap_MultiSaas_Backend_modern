@@ -15,7 +15,8 @@ public static class PresentationServiceExtensions
     private static readonly string[] Modules =
     [
         "POS", "Inventory", "ServiceTickets", "Purchasing",
-        "Clients", "Employees", "Reports", "Settings"
+        "Clients", "Employees", "Reports", "Settings",
+        "Food", "Hotel", "Medical", "Jewelry"   // industry-specific modules
     ];
 
     public static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)

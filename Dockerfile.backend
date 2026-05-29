@@ -1,0 +1,75 @@
+# ─── Multi-stage Dockerfile for ALL Flowtap backend APIs ─────────────────────
+# Usage (build-arg ENTRY_PROJECT controls which API is built):
+#   docker build --build-arg ENTRY_PROJECT=Flowtap_Food_API    -t flowtap-food-api    .
+#   docker build --build-arg ENTRY_PROJECT=Flowtap_Repair_API  -t flowtap-repair-api  .
+#   docker build --build-arg ENTRY_PROJECT=Flowtap_Hotel_API   -t flowtap-hotel-api   .
+#   docker build --build-arg ENTRY_PROJECT=Flowtap_Medical_API -t flowtap-medical-api .
+#   docker build --build-arg ENTRY_PROJECT=Flowtap_Jewelry_API -t flowtap-jewelry-api .
+#   docker build --build-arg ENTRY_PROJECT=Flowtap_Presentation -t flowtap-main-api   .
+
+ARG ENTRY_PROJECT=Flowtap_Food_API
+
+# ── Stage 1: restore + build ───────────────────────────────────────────────────
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG ENTRY_PROJECT
+
+WORKDIR /src
+
+# Copy solution and all project files first (layer-cache friendly)
+COPY ["*.sln", "./"]
+
+# Shared core
+COPY ["SharedCore/Flowtap_Domain/Flowtap_Domain.csproj",                 "SharedCore/Flowtap_Domain/"]
+COPY ["SharedCore/Flowtap_Application/Flowtap_Application.csproj",       "SharedCore/Flowtap_Application/"]
+COPY ["SharedCore/Flowtap_Infrastructure/Flowtap_Infrastructure.csproj", "SharedCore/Flowtap_Infrastructure/"]
+COPY ["SharedCore/Flowtap_Configuration/Flowtap_Configuration.csproj",   "SharedCore/Flowtap_Configuration/"]
+COPY ["SharedCore/Flowtap_Middleware/Flowtap_Middleware.csproj",         "SharedCore/Flowtap_Middleware/"]
+COPY ["SharedCore/Flowtap_Presentation.Core/Flowtap_Presentation.Core.csproj", "SharedCore/Flowtap_Presentation.Core/"]
+
+# Industry modules
+COPY ["IndustryModules/Flowtap_Food/Flowtap_Food.csproj",         "IndustryModules/Flowtap_Food/"]
+COPY ["IndustryModules/Flowtap_Repair/Flowtap_Repair.csproj",     "IndustryModules/Flowtap_Repair/"]
+COPY ["IndustryModules/Flowtap_Hotel/Flowtap_Hotel.csproj",       "IndustryModules/Flowtap_Hotel/"]
+COPY ["IndustryModules/Flowtap_Medical/Flowtap_Medical.csproj",   "IndustryModules/Flowtap_Medical/"]
+COPY ["IndustryModules/Flowtap_Jewelry/Flowtap_Jewelry.csproj",   "IndustryModules/Flowtap_Jewelry/"]
+
+# API entry points
+COPY ["APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj",         "APIEndpoints/Flowtap_Food_API/"]
+COPY ["APIEndpoints/Flowtap_Repair_API/Flowtap_Repair_API.csproj",     "APIEndpoints/Flowtap_Repair_API/"]
+COPY ["APIEndpoints/Flowtap_Hotel_API/Flowtap_Hotel_API.csproj",       "APIEndpoints/Flowtap_Hotel_API/"]
+COPY ["APIEndpoints/Flowtap_Medical_API/Flowtap_Medical_API.csproj",   "APIEndpoints/Flowtap_Medical_API/"]
+COPY ["APIEndpoints/Flowtap_Jewelry_API/Flowtap_Jewelry_API.csproj",   "APIEndpoints/Flowtap_Jewelry_API/"]
+COPY ["APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj", "APIEndpoints/Flowtap_Presentation/"]
+
+# Restore packages for the target entry point only
+RUN dotnet restore "APIEndpoints/${ENTRY_PROJECT}/${ENTRY_PROJECT}.csproj"
+
+# Copy all source code
+COPY . .
+
+# Publish the selected API
+RUN dotnet publish "APIEndpoints/${ENTRY_PROJECT}/${ENTRY_PROJECT}.csproj" \
+    -c Release -o /app/publish --no-restore \
+    /p:UseAppHost=false
+
+# ── Stage 2: runtime image ─────────────────────────────────────────────────────
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+ARG ENTRY_PROJECT
+
+WORKDIR /app
+
+# Install curl for healthcheck
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /app/publish .
+
+# Default port (override per service in docker-compose)
+ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+EXPOSE 8080
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+ENTRYPOINT ["dotnet", "${ENTRY_PROJECT}.dll"]

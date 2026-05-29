@@ -6,7 +6,9 @@ public record NotificationSettingsDto(
 
 public record NotificationListItemDto(
     Guid Id, string Type, string Recipient, string Subject,
-    string Status, string? Error, DateTime CreatedAt, DateTime? SentAt);
+    string Payload,           // full message body (email HTML or SMS/WhatsApp text)
+    string Status, string? Error, DateTime CreatedAt, DateTime? SentAt,
+    int RetryCount = 0);
 
 public record AdminBroadcastDto(
     Guid Id, string Subject, string Message, string Severity,

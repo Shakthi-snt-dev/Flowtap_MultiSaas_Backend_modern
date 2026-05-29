@@ -82,3 +82,262 @@ pnpm dev:food      # → http://localhost:3001  (Food API: port 5172)
 pnpm dev:hotel     # → http://localhost:3002  (Hotel API: port 5173)
 pnpm dev:jewellery # → http://localhost:3003  (Jewellery API: port 5174)
 pnpm dev:medical   # → http://localhost:3004  (Medical API: port 5175)
+
+
+Docker outside 
+How to use
+Start everything:
+
+cp .env.example .env          # fill in your secrets
+docker-compose up -d
+Start one industry only:
+
+docker-compose up -d postgres redis food-api food-ui
+Rebuild after code change:
+
+docker-compose build food-api && docker-compose up -d food-api
+Port map:
+
+Service	Port	URL
+Main API (all industries)	5000	api.flowtap.io
+Food API	5001	api-food.flowtap.io
+Repair API	5002	api-repair.flowtap.io
+Hotel API	5003	api-hotel.flowtap.io
+Medical API	5004	api-medical.flowtap.io
+Jewelry API	5005	api-jewelry.flowtap.io
+Food UI	3001	food.flowtap.io
+Repair UI	3002	repair.flowtap.io
+Hotel UI	3003	hotel.flowtap.io
+Medical UI	3004	medical.flowtap.io
+Jewelry UI	3005	jewelry.flowtap.io
+PostgreSQL	5432	(internal)
+Redis	6379	(internal)
+
+independend docker build
+Docker build & run commands
+All commands must run from the solution root — D:\Git\Flowtap_MultiSaas_Backend_modern\
+
+🍽 Food
+# Build
+docker build -f APIEndpoints/Flowtap_Food_API/Dockerfile -t flowtap-food-api:latest .
+
+# Run
+cp APIEndpoints/Flowtap_Food_API/.env.example APIEndpoints/Flowtap_Food_API/.env
+# (edit .env with your DB/SMTP settings)
+docker run -d -p 5001:8080 --name food-api \
+  --env-file APIEndpoints/Flowtap_Food_API/.env \
+  flowtap-food-api:latest
+🔧 Repair
+docker build -f APIEndpoints/Flowtap_Repair_API/Dockerfile -t flowtap-repair-api:latest .
+docker run -d -p 5002:8080 --name repair-api \
+  --env-file APIEndpoints/Flowtap_Repair_API/.env \
+  flowtap-repair-api:latest
+🏨 Hotel
+docker build -f APIEndpoints/Flowtap_Hotel_API/Dockerfile -t flowtap-hotel-api:latest .
+docker run -d -p 5003:8080 --name hotel-api \
+  --env-file APIEndpoints/Flowtap_Hotel_API/.env \
+  flowtap-hotel-api:latest
+🏥 Medical
+docker build -f APIEndpoints/Flowtap_Medical_API/Dockerfile -t flowtap-medical-api:latest .
+docker run -d -p 5004:8080 --name medical-api \
+  --env-file APIEndpoints/Flowtap_Medical_API/.env \
+  flowtap-medical-api:latest
+💍 Jewelry
+docker build -f APIEndpoints/Flowtap_Jewelry_API/Dockerfile -t flowtap-jewelry-api:latest .
+docker run -d -p 5005:8080 --name jewelry-api \
+  --env-file APIEndpoints/Flowtap_Jewelry_API/.env \
+  flowtap-jewelry-api:latest
+🌐 Main (all industries)
+docker build -f APIEndpoints/Flowtap_Presentation/Dockerfile -t flowtap-main-api:latest .
+docker run -d -p 5000:8080 --name main-api \
+  --env-file APIEndpoints/Flowtap_Presentation/.env \
+  flowtap-main-api:latest
+Build all at once
+docker build -f APIEndpoints/Flowtap_Food_API/Dockerfile    -t flowtap-food-api:latest . &
+docker build -f APIEndpoints/Flowtap_Repair_API/Dockerfile  -t flowtap-repair-api:latest . &
+docker build -f APIEndpoints/Flowtap_Hotel_API/Dockerfile   -t flowtap-hotel-api:latest . &
+docker build -f APIEndpoints/Flowtap_Medical_API/Dockerfile -t flowtap-medical-api:latest . &
+docker build -f APIEndpoints/Flowtap_Jewelry_API/Dockerfile -t flowtap-jewelry-api:latest . &
+wait
+echo "All builds complete"
+
+output docker build
+
+Workflow: publish → docker build → run
+Step 1 — dotnet publish (run from solution root Flowtap_MultiSaas_Backend_modern/)
+Step 2 — docker build (run from inside output/)
+Step 3 — docker run
+
+🍽 Food API
+# Step 1 — Publish (from solution root)
+dotnet publish APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Food_API/output/build
+
+# Step 2 — Build image (from output folder)
+cd APIEndpoints/Flowtap_Food_API/output
+docker build -t flowtap-food-api:latest .
+
+# Step 3 — Run
+docker run -d -p 5001:8080 --name food-api \
+  --env-file ../APIEndpoints/Flowtap_Food_API/.env \
+  flowtap-food-api:latest
+🔧 Repair API
+dotnet publish APIEndpoints/Flowtap_Repair_API/Flowtap_Repair_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Repair_API/output/build
+
+cd APIEndpoints/Flowtap_Repair_API/output
+docker build -t flowtap-repair-api:latest .
+
+docker run -d -p 5002:8080 --name repair-api \
+  --env-file ../APIEndpoints/Flowtap_Repair_API/.env \
+  flowtap-repair-api:latest
+🏨 Hotel API
+dotnet publish APIEndpoints/Flowtap_Hotel_API/Flowtap_Hotel_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Hotel_API/output/build
+
+cd APIEndpoints/Flowtap_Hotel_API/output
+docker build -t flowtap-hotel-api:latest .
+
+docker run -d -p 5003:8080 --name hotel-api \
+  --env-file ../APIEndpoints/Flowtap_Hotel_API/.env \
+  flowtap-hotel-api:latest
+🏥 Medical API
+dotnet publish APIEndpoints/Flowtap_Medical_API/Flowtap_Medical_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Medical_API/output/build
+
+cd APIEndpoints/Flowtap_Medical_API/output
+docker build -t flowtap-medical-api:latest .
+
+docker run -d -p 5004:8080 --name medical-api \
+  --env-file ../APIEndpoints/Flowtap_Medical_API/.env \
+  flowtap-medical-api:latest
+💍 Jewelry API
+dotnet publish APIEndpoints/Flowtap_Jewelry_API/Flowtap_Jewelry_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Jewelry_API/output/build
+
+cd APIEndpoints/Flowtap_Jewelry_API/output
+docker build -t flowtap-jewelry-api:latest .
+
+docker run -d -p 5005:8080 --name jewelry-api \
+  --env-file ../APIEndpoints/Flowtap_Jewelry_API/.env \
+  flowtap-jewelry-api:latest
+🌐 Main API (all industries)
+dotnet publish APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj \
+  -c Release -o APIEndpoints/Flowtap_Presentation/output/build
+
+cd APIEndpoints/Flowtap_Presentation/output
+docker build -t flowtap-main-api:latest .
+
+docker run -d -p 5000:8080 --name main-api \
+  --env-file ../APIEndpoints/Flowtap_Presentation/.env \
+  flowtap-main-api:latest
+
+
+  build file
+  Food API
+# 1. Build (compile + verify)
+dotnet build APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj -c Release
+
+# 2. Publish to output/build
+dotnet publish APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Food_API/output/build --no-build
+
+# 3. Docker build
+cd APIEndpoints/Flowtap_Food_API/output
+docker build -t flowtap-food-api:latest .
+cd ../../..
+
+# 4. Docker run
+docker run -d -p 5001:8080 --name food-api \
+  --env-file APIEndpoints/Flowtap_Food_API/.env \
+  flowtap-food-api:latest
+🔧 Repair API
+dotnet build APIEndpoints/Flowtap_Repair_API/Flowtap_Repair_API.csproj -c Release
+
+dotnet publish APIEndpoints/Flowtap_Repair_API/Flowtap_Repair_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Repair_API/output/build --no-build
+
+cd APIEndpoints/Flowtap_Repair_API/output
+docker build -t flowtap-repair-api:latest .
+cd ../../..
+
+docker run -d -p 5002:8080 --name repair-api \
+  --env-file APIEndpoints/Flowtap_Repair_API/.env \
+  flowtap-repair-api:latest
+🏨 Hotel API
+dotnet build APIEndpoints/Flowtap_Hotel_API/Flowtap_Hotel_API.csproj -c Release
+
+dotnet publish APIEndpoints/Flowtap_Hotel_API/Flowtap_Hotel_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Hotel_API/output/build --no-build
+
+cd APIEndpoints/Flowtap_Hotel_API/output
+docker build -t flowtap-hotel-api:latest .
+cd ../../..
+
+docker run -d -p 5003:8080 --name hotel-api \
+  --env-file APIEndpoints/Flowtap_Hotel_API/.env \
+  flowtap-hotel-api:latest
+🏥 Medical API
+dotnet build APIEndpoints/Flowtap_Medical_API/Flowtap_Medical_API.csproj -c Release
+
+dotnet publish APIEndpoints/Flowtap_Medical_API/Flowtap_Medical_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Medical_API/output/build --no-build
+
+cd APIEndpoints/Flowtap_Medical_API/output
+docker build -t flowtap-medical-api:latest .
+cd ../../..
+
+docker run -d -p 5004:8080 --name medical-api \
+  --env-file APIEndpoints/Flowtap_Medical_API/.env \
+  flowtap-medical-api:latest
+💍 Jewelry API
+dotnet build APIEndpoints/Flowtap_Jewelry_API/Flowtap_Jewelry_API.csproj -c Release
+
+dotnet publish APIEndpoints/Flowtap_Jewelry_API/Flowtap_Jewelry_API.csproj \
+  -c Release -o APIEndpoints/Flowtap_Jewelry_API/output/build --no-build
+
+cd APIEndpoints/Flowtap_Jewelry_API/output
+docker build -t flowtap-jewelry-api:latest .
+cd ../../..
+
+docker run -d -p 5005:8080 --name jewelry-api \
+  --env-file APIEndpoints/Flowtap_Jewelry_API/.env \
+  flowtap-jewelry-api:latest
+🌐 Main API (all industries)
+dotnet build APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj -c Release
+
+dotnet publish APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj \
+  -c Release -o APIEndpoints/Flowtap_Presentation/output/build --no-build
+
+cd APIEndpoints/Flowtap_Presentation/output
+docker build -t flowtap-main-api:latest .
+cd ../../..
+
+docker run -d -p 5000:8080 --name main-api \
+  --env-file APIEndpoints/Flowtap_Presentation/.env \
+  flowtap-main-api:latest
+Build all at once (parallel)
+# Build all APIs in parallel
+dotnet build APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj    -c Release &
+dotnet build APIEndpoints/Flowtap_Repair_API/Flowtap_Repair_API.csproj -c Release &
+dotnet build APIEndpoints/Flowtap_Hotel_API/Flowtap_Hotel_API.csproj  -c Release &
+dotnet build APIEndpoints/Flowtap_Medical_API/Flowtap_Medical_API.csproj -c Release &
+dotnet build APIEndpoints/Flowtap_Jewelry_API/Flowtap_Jewelry_API.csproj -c Release &
+dotnet build APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj -c Release &
+wait && echo "All builds succeeded"
+
+# Publish all
+for api in Flowtap_Food_API Flowtap_Repair_API Flowtap_Hotel_API Flowtap_Medical_API Flowtap_Jewelry_API Flowtap_Presentation; do
+  dotnet publish APIEndpoints/$api/$api.csproj \
+    -c Release -o APIEndpoints/$api/output/build --no-build &
+done
+wait && echo "All publishes done"
+
+# Docker build all
+cd APIEndpoints/Flowtap_Food_API/output    && docker build -t flowtap-food-api:latest    . && cd ../../..
+cd APIEndpoints/Flowtap_Repair_API/output  && docker build -t flowtap-repair-api:latest  . && cd ../../..
+cd APIEndpoints/Flowtap_Hotel_API/output   && docker build -t flowtap-hotel-api:latest   . && cd ../../..
+cd APIEndpoints/Flowtap_Medical_API/output && docker build -t flowtap-medical-api:latest . && cd ../../..
+cd APIEndpoints/Flowtap_Jewelry_API/output && docker build -t flowtap-jewelry-api:latest . && cd ../../..
+cd APIEndpoints/Flowtap_Presentation/output && docker build -t flowtap-main-api:latest  . && cd ../../..
+echo "All Docker images ready"

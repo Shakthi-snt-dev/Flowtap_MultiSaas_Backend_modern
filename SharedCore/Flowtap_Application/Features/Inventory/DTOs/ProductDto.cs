@@ -19,7 +19,9 @@ public record ProductVariantDto(Guid Id, string Name, string SKU, bool IsActive,
 
 public record WarehouseDto(
     Guid Id, Guid CompanyId, string Code, string Name, string Type,
-    string Status, string City, string Country, bool IsActive, bool HasRackSystem);
+    string Status, string City, string Country, bool IsActive, bool HasRackSystem,
+    Guid? ManagerEmployeeId = null,
+    Guid? LocationId = null);
 
 public record StockLevelDto(
     Guid ProductId, string ProductName, string SKU, Guid WarehouseId, string WarehouseName,

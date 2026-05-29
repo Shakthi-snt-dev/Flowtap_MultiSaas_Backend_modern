@@ -1,6 +1,7 @@
 using Flowtap_Application.Common.DTOs;
 using Flowtap_Application.Common.Exceptions;
 using Flowtap_Application.Common.Interfaces;
+using Flowtap_Application.Common.Notifications;
 using Flowtap_Domain.BoundedContexts.Modules.Inventory.Entities;
 using Flowtap_Domain.BoundedContexts.Modules.Inventory.Enums;
 using MediatR;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Flowtap_Application.Features.Inventory.Commands.AdjustStock;
 
-public class AdjustStockCommandHandler(IApplicationDbContext db, IDateTimeService dateTime)
+public class AdjustStockCommandHandler(IApplicationDbContext db, IDateTimeService dateTime, IPublisher publisher)
     : IRequestHandler<AdjustStockCommand, Result<Guid>>
 {
     public async Task<Result<Guid>> Handle(AdjustStockCommand request, CancellationToken ct)
@@ -81,6 +82,18 @@ public class AdjustStockCommandHandler(IApplicationDbContext db, IDateTimeServic
         });
 
         await db.SaveChangesAsync(ct);
+
+        // Auto-check stock alert rules whenever stock is REDUCED.
+        // FoodStockCheckOnSaleHandler and ReorderCheckOnSaleHandler listen to this
+        // notification and will queue alert messages if any rule's threshold is crossed.
+        if (adjType == StockAdjustmentType.Remove)
+        {
+            await publisher.Publish(new SaleStockDeductedNotification(
+                CompanyId:   request.CompanyId,
+                WarehouseId: request.WarehouseId,
+                Items:       [new DeductedStockItem(request.ProductId)]), ct);
+        }
+
         return Result<Guid>.Success(adjustment.Id);
     }
 }

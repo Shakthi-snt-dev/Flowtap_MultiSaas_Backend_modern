@@ -25,6 +25,9 @@ public class UpdateStoreCommandHandler(IApplicationDbContext db, ITaxTemplateSer
         if (request.CurrencyCode is not null) store.CurrencyCode = request.CurrencyCode;
         if (request.IsActive.HasValue) store.IsActive = request.IsActive.Value;
         if (request.LocationCode is not null) store.LocationCode = request.LocationCode;
+        if (request.ManagerEmployeeId.HasValue) store.ManagerEmployeeId = request.ManagerEmployeeId == Guid.Empty
+            ? null                                   // pass empty Guid to clear the assignment
+            : request.ManagerEmployeeId;
 
         await db.SaveChangesAsync(ct);
 

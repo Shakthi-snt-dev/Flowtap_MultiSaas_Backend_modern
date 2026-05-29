@@ -61,10 +61,12 @@ public class NotificationController(ISender sender, IHubContext<CommunicationsHu
     public async Task<IActionResult> GetHistory(
         [FromQuery] string? channel,
         [FromQuery] string? status,
+        [FromQuery] string? subjectContains,
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 30,
         CancellationToken ct = default)
-        => Ok(await Sender.Send(new GetNotificationsQuery(CurrentTenantId, channel, status, page, pageSize), ct));
+        => Ok(await Sender.Send(
+            new GetNotificationsQuery(CurrentTenantId, channel, status, subjectContains, page, pageSize), ct));
 
     /// <summary>
     /// Get active in-app broadcast messages.

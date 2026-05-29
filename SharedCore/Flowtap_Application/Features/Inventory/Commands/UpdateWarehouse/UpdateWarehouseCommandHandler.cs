@@ -23,8 +23,18 @@ public class UpdateWarehouseCommandHandler(IApplicationDbContext db)
         if (request.Address is not null) warehouse.Address = request.Address;
         if (request.IsActive.HasValue) warehouse.IsActive = request.IsActive.Value;
         if (request.HasRackSystem.HasValue) warehouse.HasRackSystem = request.HasRackSystem.Value;
-        
-        warehouse.LocationId = request.StoreId;
+        if (request.Type.HasValue &&
+            Enum.IsDefined(typeof(Flowtap_Domain.BoundedContexts.Modules.Inventory.Enums.WarehouseType), request.Type.Value))
+            warehouse.Type = (Flowtap_Domain.BoundedContexts.Modules.Inventory.Enums.WarehouseType)request.Type.Value;
+        if (request.ManagerEmployeeId.HasValue) warehouse.ManagerEmployeeId = request.ManagerEmployeeId == Guid.Empty
+            ? null
+            : request.ManagerEmployeeId;
+
+        // Only update LocationId when StoreId is explicitly provided.
+        // Leaving StoreId null in the request preserves the existing store link —
+        // prevents accidentally clearing it when only updating the manager or other fields.
+        if (request.StoreId.HasValue)
+            warehouse.LocationId = request.StoreId == Guid.Empty ? null : request.StoreId;
 
         await db.SaveChangesAsync(ct);
         return Result<bool>.Success(true);

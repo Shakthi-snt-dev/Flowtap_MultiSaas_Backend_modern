@@ -11,6 +11,8 @@ public class Store : AuditableEntity
     public int CurrentOrderCounter { get; set; }
     public Guid? DefaultCashierId { get; set; }
     public bool AlwaysUseDefaultCashier { get; set; }
+    /// <summary>Employee designated as manager for this location — receives store-level stock alerts.</summary>
+    public Guid? ManagerEmployeeId { get; set; }
     public string CountryCode { get; set; } = string.Empty;
     public string CurrencyCode { get; set; } = string.Empty;
     public string TimeZoneId { get; set; } = "UTC";

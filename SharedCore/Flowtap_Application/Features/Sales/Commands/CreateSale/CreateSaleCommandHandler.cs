@@ -201,8 +201,13 @@ public class CreateSaleCommandHandler(IApplicationDbContext db, IDateTimeService
         }
 
         // ── Deduct stock ──────────────────────────────────────────────────────
+        // Priority: InStore warehouse at the sale's location → any warehouse at the location → first company warehouse
         var warehouse = await db.Warehouses
-            .FirstOrDefaultAsync(w => w.CompanyId == request.CompanyId, ct);
+            .Where(w => w.CompanyId == request.CompanyId && w.LocationId == request.LocationId)
+            .OrderBy(w => w.Type == Flowtap_Domain.BoundedContexts.Modules.Inventory.Enums.WarehouseType.InStore ? 0 : 1) // InStore first
+            .FirstOrDefaultAsync(ct)
+            ?? await db.Warehouses
+                .FirstOrDefaultAsync(w => w.CompanyId == request.CompanyId, ct);
 
         if (warehouse is not null)
         {
@@ -241,6 +246,22 @@ public class CreateSaleCommandHandler(IApplicationDbContext db, IDateTimeService
             }
 
             await db.SaveChangesAsync(ct);
+
+            // ── Trigger immediate reorder + food stock check ──────────────────
+            // Publish which products were just deducted so handlers can check
+            // thresholds right now, without waiting for the background services.
+            // The SaveChangesAsync above has already committed the updated stock
+            // quantities to DB — handlers re-query the DB for the current level.
+            // Handlers in other modules (e.g. Food) are registered by their own
+            // API entry point and silently no-op in Repair / Retail / Hotel APIs.
+            var deductedItems = sale.Items
+                .Select(i => new DeductedStockItem(i.ProductId))
+                .ToList();
+
+            await publisher.Publish(new SaleStockDeductedNotification(
+                CompanyId:   request.CompanyId,
+                WarehouseId: warehouse.Id,
+                Items:       deductedItems), ct);
         }
 
         return Result<Guid>.Success(sale.Id);

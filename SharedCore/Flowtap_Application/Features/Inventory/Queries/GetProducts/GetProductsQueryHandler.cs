@@ -28,10 +28,22 @@ public class GetProductsQueryHandler(IApplicationDbContext db, ICurrentUserServi
         if (!string.IsNullOrWhiteSpace(request.Search))
             query = query.Where(p => p.Name.Contains(request.Search) || p.SKU.Contains(request.Search));
 
-        // Industry-specific kind filter — food POS sends "FinalProduct"; null = show all (Repair/Retail default)
-        if (!string.IsNullOrWhiteSpace(request.Kind) &&
-            Enum.TryParse<ProductKind>(request.Kind, ignoreCase: true, out var kindFilter))
-            query = query.Where(p => p.Kind == kindFilter);
+        // Kind filter — supports single value ("FinalProduct") OR comma-separated list
+        // ("RawMaterial,FinalProduct" for stock-alert page that covers both types)
+        if (!string.IsNullOrWhiteSpace(request.Kind))
+        {
+            var parsedKinds = request.Kind
+                .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                .Select(k => Enum.TryParse<ProductKind>(k, ignoreCase: true, out var kf) ? kf : (ProductKind?)null)
+                .Where(k => k.HasValue)
+                .Select(k => k!.Value)
+                .ToList();
+
+            if (parsedKinds.Count == 1)
+                query = query.Where(p => p.Kind == parsedKinds[0]);
+            else if (parsedKinds.Count > 1)
+                query = query.Where(p => parsedKinds.Contains(p.Kind));
+        }
 
         var total = await query.CountAsync(ct);
         var items = await query
@@ -63,9 +75,18 @@ public class GetProductsQueryHandler(IApplicationDbContext db, ICurrentUserServi
             }
         }
 
+        // Determine which store's warehouses to use for stock calculation:
+        //   1. JWT storeId (employees — fixed to their store)
+        //   2. request.LocationId (owner switching stores in frontend — passes currentStoreId)
+        //   3. null → sum all warehouses (owner with no store context)
         List<Guid>? locationWarehouseIds = null;
-        var activeStoreId = currentUser.StoreId;
-        if (activeStoreId.HasValue && activeStoreId.Value != Guid.Empty)
+        var activeStoreId = (currentUser.StoreId.HasValue && currentUser.StoreId.Value != Guid.Empty)
+            ? currentUser.StoreId
+            : (request.LocationId.HasValue && request.LocationId.Value != Guid.Empty)
+                ? request.LocationId
+                : null;
+
+        if (activeStoreId.HasValue)
         {
             locationWarehouseIds = await db.Warehouses
                 .Where(w => w.LocationId == activeStoreId.Value)
