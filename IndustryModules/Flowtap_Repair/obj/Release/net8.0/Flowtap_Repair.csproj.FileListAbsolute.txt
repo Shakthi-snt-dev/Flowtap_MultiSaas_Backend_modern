@@ -1,0 +1,16 @@
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Repair.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Repair.runtimeconfig.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Repair.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Repair.pdb
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.csproj.AssemblyReference.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.AssemblyInfoInputs.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.AssemblyInfo.cs
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.csproj.CoreCompileInputs.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.sourcelink.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_.EB3F9572.Up2Date
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\refint\Flowtap_Repair.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.pdb
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\Flowtap_Repair.genruntimeconfig.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\IndustryModules\Flowtap_Repair\obj\Release\net8.0\ref\Flowtap_Repair.dll

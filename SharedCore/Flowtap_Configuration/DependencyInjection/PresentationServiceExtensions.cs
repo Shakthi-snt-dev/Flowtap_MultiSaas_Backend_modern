@@ -89,9 +89,7 @@ public static class PresentationServiceExtensions
             {
                 if (corsOrigins != null && corsOrigins.Length > 0)
                 {
-                    policy.WithOrigins("http://localhost:5173",
-                        "http://localhost:3000","http://localhost:3005",
-                        "https://app.flowtap.io")
+                    policy.AllowAnyOrigin()
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials();

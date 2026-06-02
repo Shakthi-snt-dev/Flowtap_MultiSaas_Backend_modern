@@ -60,7 +60,7 @@ public class EmailService(IOptions<EmailSettings> emailOptions, ILogger<EmailSer
             var data = (dynamic)model;
             string name = data.GetType().GetProperty("Name")?.GetValue(data, null) as string ?? "Customer";
             string token = data.GetType().GetProperty("Token")?.GetValue(data, null) as string ?? string.Empty;
-            string verificationUrl = $"http://localhost:3000/verify-email?token={token}";
+            string verificationUrl = $"http://localhost:3001/verify-email?token={token}";
 
             body = $@"
                 <html>

@@ -27,14 +27,14 @@ RUN dotnet restore APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj
 
 COPY . .
 RUN dotnet publish APIEndpoints/Flowtap_Presentation/Flowtap_Presentation.csproj \
-    -c Release -o /app/publish --no-restore /p:UseAppHost=false
+    -c Release -o APIEndpoints/Flowtap_Presentation/output --no-restore /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /app/publish .
+COPY --from=build /src/APIEndpoints/Flowtap_Presentation/output .
 
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production

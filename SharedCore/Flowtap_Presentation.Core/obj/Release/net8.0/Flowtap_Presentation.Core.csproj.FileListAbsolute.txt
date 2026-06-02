@@ -1,0 +1,17 @@
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\output\build\Flowtap_Presentation.Core.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\output\build\Flowtap_Presentation.Core.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\output\build\Flowtap_Presentation.Core.pdb
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.csproj.AssemblyReference.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.AssemblyInfoInputs.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.AssemblyInfo.cs
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.csproj.CoreCompileInputs.cache
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.sourcelink.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_.C28E92E7.Up2Date
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\refint\Flowtap_Presentation.Core.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\Flowtap_Presentation.Core.pdb
+D:\Git\Flowtap_MultiSaas_Backend_modern\SharedCore\Flowtap_Presentation.Core\obj\Release\net8.0\ref\Flowtap_Presentation.Core.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Presentation.Core.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Presentation.Core.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\output\build\Flowtap_Presentation.Core.pdb

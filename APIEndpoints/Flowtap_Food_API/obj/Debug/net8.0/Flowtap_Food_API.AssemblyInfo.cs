@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Flowtap_Food_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c8a8abcdbbf1f88a94978f5b55ddd045b0f25d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3df7df695a61bd8d003656ac03ded04da7c70fc5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Flowtap_Food_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Flowtap_Food_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -24,7 +24,7 @@ RUN dotnet restore APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj
 # Copy full source and publish
 COPY . .
 RUN dotnet publish APIEndpoints/Flowtap_Food_API/Flowtap_Food_API.csproj \
-    -c Release -o /app/publish --no-restore /p:UseAppHost=false
+    -c Release -o APIEndpoints/Flowtap_Food_API/output --no-restore /p:UseAppHost=false
 
 # ── Stage 2: Runtime ─────────────────────────────────────────────────────────
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
@@ -32,7 +32,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
 
-COPY --from=build /app/publish .
+COPY --from=build /src/APIEndpoints/Flowtap_Food_API/output .
 
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production

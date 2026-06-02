@@ -552,3 +552,17 @@ D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\obj\Debu
 D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\obj\Debug\net8.0\Flowtap_.162342B7.Up2Date
 D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\obj\Debug\net8.0\Flowtap_Repair_API.genruntimeconfig.cache
 D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\obj\Debug\net8.0\ref\Flowtap_Repair_API.dll
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\appsettings.Development.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\appsettings.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Application.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Configuration.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Domain.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Infrastructure.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Infrastructure.runtimeconfig.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Middleware.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Presentation.Core.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Repair.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Repair.runtimeconfig.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Repair_API.deps.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Repair_API.runtimeconfig.json
+D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Repair_API\bin\Debug\net8.0\output\build\Flowtap_Repair_API.staticwebassets.endpoints.json
