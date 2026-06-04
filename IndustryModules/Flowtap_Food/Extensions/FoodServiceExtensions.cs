@@ -18,6 +18,9 @@ public static class FoodServiceExtensions
 {
     public static IServiceCollection AddFoodModule(this IServiceCollection services, IConfiguration configuration)
     {
+        // Register permission module so PresentationServiceExtensions can discover it
+        services.AddSingleton<IIndustryPermissionModule, FoodPermissionModule>();
+
         // FoodDbContext connects to the same DB as ApplicationDbContext (same connection string).
         // Its migration creates ALL tables: core (120) + food (6) = 126 total.
         // Since Food_API has its own dedicated database, there is no conflict with other modules.

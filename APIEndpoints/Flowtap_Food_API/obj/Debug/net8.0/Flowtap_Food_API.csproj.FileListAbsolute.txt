@@ -559,17 +559,3 @@ D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\obj\Debug\
 D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\obj\Debug\net8.0\Flowtap_.9EB4DC28.Up2Date
 D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\obj\Debug\net8.0\Flowtap_Food_API.genruntimeconfig.cache
 D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\obj\Debug\net8.0\ref\Flowtap_Food_API.dll
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\appsettings.Development.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\appsettings.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Application.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Configuration.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Domain.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Food.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Food.runtimeconfig.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Food_API.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Food_API.runtimeconfig.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Food_API.staticwebassets.endpoints.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Infrastructure.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Infrastructure.runtimeconfig.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Middleware.deps.json
-D:\Git\Flowtap_MultiSaas_Backend_modern\APIEndpoints\Flowtap_Food_API\bin\Debug\net8.0\output\build\Flowtap_Presentation.Core.deps.json

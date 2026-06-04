@@ -1,5 +1,7 @@
+using Flowtap_Application.Features.Sales.Commands.CreateSale;
 using Flowtap_Domain.BoundedContexts.Core.Organization.Enums;
 using Flowtap_Medical.Application.Appointments.CreateAppointment;
+using Flowtap_Medical.Application.Sales;
 using Flowtap_Medical.Application.Appointments.GetAppointments;
 using Flowtap_Medical.Application.Appointments.UpdateAppointmentStatus;
 using Flowtap_Medical.Application.Consultations.CreateConsultation;
@@ -18,6 +20,33 @@ namespace Flowtap_Medical.Controllers;
 [Route("api/v1/medical")]
 public class MedicalController(ISender sender) : ApiController(sender)
 {
+    // ── Sales (Medical POS) ──────────────────────────────────────────────────
+    // Only exposes PatientId + AppointmentNumber — no food tables, no repair tickets
+
+    [HttpPost("sales")]
+    [RequirePermission("POS")]
+    public async Task<IActionResult> CreateSale([FromBody] MedicalCreateSaleRequest req, CancellationToken ct)
+        => Created(await Sender.Send(new CreateSaleCommand(
+            CompanyId:      CurrentTenantId,
+            LocationId:     req.LocationId,
+            ClientId:       req.ClientId,
+            Source:         req.Source,
+            TicketId:       null,
+            Notes:          req.Notes,
+            IdempotencyKey: req.IdempotencyKey,
+            Items:          req.Items,
+            Payments:       req.Payments,
+            EmployeeId:     req.EmployeeId,
+            IndustryContext: req.PatientId.HasValue || req.AppointmentNumber != null
+                ? new Dictionary<string, object?>
+                  {
+                      ["patientId"]          = req.PatientId,
+                      ["appointmentNumber"]  = req.AppointmentNumber
+                  }.Where(kv => kv.Value != null)
+                   .ToDictionary(kv => kv.Key, kv => kv.Value!)
+                : null
+        ), ct));
+
     // ── Patients ──────────────────────────────────────────────────────────────
 
     [HttpGet("patients")]

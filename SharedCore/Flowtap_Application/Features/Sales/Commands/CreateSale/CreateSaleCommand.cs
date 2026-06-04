@@ -22,7 +22,10 @@ public record CreateSaleCommand(
     string? TicketNumber = null,
     // Food industry extensions — null for all other industries
     Guid? TableId = null,
-    FoodOrderType? FoodOrderType = null
+    FoodOrderType? FoodOrderType = null,
+    // Future industries: pass arbitrary context without touching SharedCore again
+    // e.g. Hotel: { "roomId": "...", "checkoutDate": "..." }
+    Dictionary<string, object>? IndustryContext = null
 ) : IRequest<Result<Guid>>;
 
 public record CreateSaleItemDto(

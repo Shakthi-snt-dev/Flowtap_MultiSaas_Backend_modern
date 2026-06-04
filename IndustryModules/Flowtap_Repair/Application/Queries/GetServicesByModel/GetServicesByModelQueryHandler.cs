@@ -25,7 +25,8 @@ public class GetServicesByModelQueryHandler(IRepairDbContext db)
             .OrderBy(s => s.Name)
             .Select(s => new ServiceDto(
                 s.Id, s.CompanyId, s.Name, s.Description,
-                s.BasePrice, s.IsActive, s.IsUniversal, s.ServiceCategoryId))
+                s.BasePrice, s.IsActive, s.IsUniversal, s.ServiceCategoryId,
+                mappedServiceIds.Contains(s.Id) ? "ModelSpecific" : "Universal"))
             .ToListAsync(ct);
 
         return Result<List<ServiceDto>>.Success(services);

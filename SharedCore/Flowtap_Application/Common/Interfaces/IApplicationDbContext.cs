@@ -17,6 +17,9 @@ public interface IApplicationDbContext
     DbSet<UserNotificationSettings> UserNotificationSettings { get; }
     DbSet<RefreshToken> RefreshTokens { get; }
 
+    // Audit
+    DbSet<AuditLog> AuditLogs { get; }
+
     // Organization
     DbSet<Tenant> Tenants { get; }
     DbSet<TenantSettings> TenantSettings { get; }

@@ -13,6 +13,9 @@ public static class MedicalServiceExtensions
 {
     public static IServiceCollection AddMedicalModule(this IServiceCollection services, IConfiguration configuration)
     {
+        // Register permission module so PresentationServiceExtensions can discover it
+        services.AddSingleton<IIndustryPermissionModule, MedicalPermissionModule>();
+
         // MedicalDbContext connects to the medical-dedicated database.
         // Its migration creates ALL tables: core + medical. No conflict — separate DB.
         services.AddDbContext<MedicalDbContext>((sp, options) =>

@@ -13,6 +13,9 @@ public static class JewelryServiceExtensions
 {
     public static IServiceCollection AddJewelryModule(this IServiceCollection services, IConfiguration configuration)
     {
+        // Register permission module so PresentationServiceExtensions can discover it
+        services.AddSingleton<IIndustryPermissionModule, JewelryPermissionModule>();
+
         // JewelryDbContext connects to the jewelry-dedicated database.
         // Its migration creates ALL tables: core + jewelry. No conflict — separate DB.
         services.AddDbContext<JewelryDbContext>((sp, options) =>

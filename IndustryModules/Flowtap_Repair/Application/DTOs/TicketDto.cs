@@ -51,7 +51,8 @@ public record TicketPaymentDto(
 
 public record ServiceDto(
     Guid Id, Guid CompanyId, string Name, string? Description,
-    decimal BasePrice, bool IsActive, bool IsUniversal, Guid? ServiceCategoryId);
+    decimal BasePrice, bool IsActive, bool IsUniversal, Guid? ServiceCategoryId,
+    string? Tier = null);
 
 public record TaskDto(
     Guid Id, Guid CompanyId, Guid LocationId,

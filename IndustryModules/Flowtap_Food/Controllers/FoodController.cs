@@ -1,5 +1,7 @@
+using Flowtap_Application.Features.Sales.Commands.CreateSale;
 using Flowtap_Domain.BoundedContexts.Core.Organization.Enums;
 using Flowtap_Food.Application.KitchenOrders.CreateKitchenOrder;
+using Flowtap_Food.Application.Sales;
 using Flowtap_Food.Application.KitchenOrders.GetKitchenOrders;
 using Flowtap_Food.Application.KitchenOrders.UpdateKOTStatus;
 using Flowtap_Food.Application.RawMaterials.ConsumeForProduction;
@@ -23,6 +25,29 @@ namespace Flowtap_Food.Controllers;
 [Route("api/v1/food")]
 public class FoodController(ISender sender) : ApiController(sender)
 {
+    // ── Sales (Food POS) ─────────────────────────────────────────────────────
+    // Only exposes TableId + FoodOrderType — Repair/Hotel/Medical never see these fields
+
+    [HttpPost("sales")]
+    [RequirePermission("POS")]
+    public async Task<IActionResult> CreateSale([FromBody] FoodCreateSaleRequest req, CancellationToken ct)
+        => Created(await Sender.Send(new CreateSaleCommand(
+            CompanyId:        CurrentTenantId,
+            LocationId:       req.LocationId,
+            ClientId:         req.ClientId,
+            Source:           req.Source,
+            TicketId:         null,
+            Notes:            req.Notes,
+            IdempotencyKey:   req.IdempotencyKey,
+            Items:            req.Items,
+            Payments:         req.Payments,
+            EmployeeId:       req.EmployeeId,
+            TicketPrepayment: 0,
+            TicketNumber:     null,
+            TableId:          req.TableId,
+            FoodOrderType:    req.FoodOrderType
+        ), ct));
+
     // ── Tables ────────────────────────────────────────────────────────────────
 
     [HttpGet("tables")]

@@ -329,7 +329,7 @@ wait && echo "All builds succeeded"
 # Publish all
 for api in Flowtap_Food_API Flowtap_Repair_API Flowtap_Hotel_API Flowtap_Medical_API Flowtap_Jewelry_API Flowtap_Presentation; do
   dotnet publish APIEndpoints/$api/$api.csproj \
-    -c Release -o APIEndpoints/$api/output/build --no-build &
+    -c Release -o APIEndpoints/$api/o output/build --no-build &
 done
 wait && echo "All publishes done"
 

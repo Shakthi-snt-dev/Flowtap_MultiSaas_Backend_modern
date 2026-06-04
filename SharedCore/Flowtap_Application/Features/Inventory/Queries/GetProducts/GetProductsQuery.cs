@@ -9,9 +9,10 @@ public record GetProductsQuery(
     int Page = 1,
     int PageSize = 20,
     string? Search = null,
-    bool? IsActive = null,        // null = all, true = active only, false = inactive only
-    Guid? CategoryId = null,      // filter by category
-    Guid? WarehouseId = null,     // if set, stock shown for this warehouse only; else sum all
-    Guid? LocationId = null,      // if set, include store-specific price in response
-    string? Kind = null)          // optional ProductKind filter ("FinalProduct" for food POS); null = no filter
+    bool? IsActive = null,              // null = all, true = active only, false = inactive only
+    Guid? CategoryId = null,            // filter by category
+    Guid? WarehouseId = null,           // if set, stock shown for this warehouse only; else sum all
+    Guid? LocationId = null,            // if set, include store-specific price in response
+    string? Kind = null,                // optional ProductKind filter ("FinalProduct" for food POS); null = no filter
+    bool IncludeSubCategories = false)  // when true, also include products in child categories
     : IRequest<Result<PaginatedList<ProductListItemDto>>>;

@@ -13,6 +13,9 @@ public static class HotelServiceExtensions
 {
     public static IServiceCollection AddHotelModule(this IServiceCollection services, IConfiguration configuration)
     {
+        // Register permission module so PresentationServiceExtensions can discover it
+        services.AddSingleton<IIndustryPermissionModule, HotelPermissionModule>();
+
         // HotelDbContext connects to the hotel-dedicated database.
         // Its migration creates ALL tables: core + hotel. No conflict — separate DB.
         services.AddDbContext<HotelDbContext>((sp, options) =>

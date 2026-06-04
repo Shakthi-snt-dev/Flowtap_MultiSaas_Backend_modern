@@ -13,11 +13,11 @@ public class ProductCategoriesController(ISender sender) : ApiController(sender)
 {
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateProductCategoryCommand command, CancellationToken ct)
-        => Created(await Sender.Send(command, ct));
+        => Created(await Sender.Send(command with { CompanyId = CurrentTenantId }, ct));
 
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] GetProductCategoriesQuery query, CancellationToken ct)
-        => Ok(await Sender.Send(query, ct));
+        => Ok(await Sender.Send(query with { CompanyId = CurrentTenantId }, ct));
 
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] UpdateProductCategoryCommand command, CancellationToken ct)

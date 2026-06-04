@@ -1,5 +1,7 @@
+using Flowtap_Application.Features.Sales.Commands.CreateSale;
 using Flowtap_Domain.BoundedContexts.Core.Organization.Enums;
 using Flowtap_Hotel.Application.Bookings.CreateBooking;
+using Flowtap_Hotel.Application.Sales;
 using Flowtap_Hotel.Application.Bookings.GetBookings;
 using Flowtap_Hotel.Application.Bookings.UpdateBookingStatus;
 using Flowtap_Hotel.Application.Rooms.CreateRoom;
@@ -17,6 +19,33 @@ namespace Flowtap_Hotel.Controllers;
 [Route("api/v1/hotel")]
 public class HotelController(ISender sender) : ApiController(sender)
 {
+    // ── Sales (Hotel POS) ────────────────────────────────────────────────────
+    // Only exposes RoomId + BookingReference — no food tables, no repair tickets
+
+    [HttpPost("sales")]
+    [RequirePermission("POS")]
+    public async Task<IActionResult> CreateSale([FromBody] HotelCreateSaleRequest req, CancellationToken ct)
+        => Created(await Sender.Send(new CreateSaleCommand(
+            CompanyId:      CurrentTenantId,
+            LocationId:     req.LocationId,
+            ClientId:       req.ClientId,
+            Source:         req.Source,
+            TicketId:       null,
+            Notes:          req.Notes,
+            IdempotencyKey: req.IdempotencyKey,
+            Items:          req.Items,
+            Payments:       req.Payments,
+            EmployeeId:     req.EmployeeId,
+            IndustryContext: req.RoomId.HasValue || req.BookingReference != null
+                ? new Dictionary<string, object?>
+                  {
+                      ["roomId"]           = req.RoomId,
+                      ["bookingReference"] = req.BookingReference
+                  }.Where(kv => kv.Value != null)
+                   .ToDictionary(kv => kv.Key, kv => kv.Value!)
+                : null
+        ), ct));
+
     // ── Rooms ─────────────────────────────────────────────────────────────────
 
     [HttpGet("rooms")]

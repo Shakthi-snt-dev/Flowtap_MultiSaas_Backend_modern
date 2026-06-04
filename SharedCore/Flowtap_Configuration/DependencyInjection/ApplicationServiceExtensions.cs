@@ -10,7 +10,7 @@ public static class ApplicationServiceExtensions
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        var applicationAssembly = Assembly.Load("Flowtap_Application");
+        var applicationAssembly = typeof(ValidationBehavior<,>).Assembly;
 
         services.AddAutoMapper(applicationAssembly);
 

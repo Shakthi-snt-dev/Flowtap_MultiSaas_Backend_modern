@@ -13,6 +13,9 @@ public static class RepairServiceExtensions
 {
     public static IServiceCollection AddRepairModule(this IServiceCollection services, IConfiguration configuration)
     {
+        // Register permission module so PresentationServiceExtensions can discover it
+        services.AddSingleton<IIndustryPermissionModule, RepairPermissionModule>();
+
         // RepairDbContext connects to the repair-dedicated database.
         // Its migration creates ALL tables: core + repair. No conflict — separate DB.
         services.AddDbContext<RepairDbContext>((sp, options) =>

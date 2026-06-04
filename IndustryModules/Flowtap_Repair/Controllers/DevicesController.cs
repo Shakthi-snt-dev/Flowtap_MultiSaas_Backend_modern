@@ -1,4 +1,5 @@
 using Flowtap_Repair.Application.Features.Devices.Commands.CreateDeviceBrand;
+using Flowtap_Repair.Application.Features.Devices.Queries.GetProductsByBrand;
 using Flowtap_Repair.Application.Features.Devices.Commands.UpdateDeviceBrand;
 using Flowtap_Repair.Application.Features.Devices.Commands.DeleteDeviceBrand;
 using Flowtap_Repair.Application.Features.Devices.Commands.CreateDeviceModel;
@@ -54,6 +55,20 @@ public class DevicesController(ISender sender) : ApiController(sender)
     [HttpGet("models/{modelId}/products")]
     public async Task<IActionResult> GetProductsByModel(Guid modelId, [FromQuery] Guid companyId, CancellationToken ct)
         => Ok(await Sender.Send(new GetProductsByDeviceModelQuery(companyId, modelId), ct));
+
+    /// <summary>
+    /// Returns products linked to any model of the given brand.
+    /// Used by the Repair POS brand filter chip.
+    /// </summary>
+    [HttpGet("brands/{brandId:guid}/products")]
+    public async Task<IActionResult> GetProductsByBrand(
+        Guid brandId,
+        [FromQuery] Guid companyId,
+        [FromQuery] Guid? categoryId = null,
+        [FromQuery] string? kind = "Device,Accessory",
+        CancellationToken ct = default)
+        => Ok(await Sender.Send(
+            new GetProductsByBrandQuery(companyId, brandId, categoryId, kind), ct));
 
     [HttpGet("models/{modelId}/services")]
     public async Task<IActionResult> GetServicesByModel(Guid modelId, [FromQuery] Guid companyId, CancellationToken ct)

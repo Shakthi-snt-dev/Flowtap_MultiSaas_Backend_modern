@@ -1,5 +1,7 @@
+using Flowtap_Application.Common.Interfaces;
 using Flowtap_Presentation.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Configuration;
@@ -12,11 +14,13 @@ namespace Flowtap_Configuration.DependencyInjection;
 
 public static class PresentationServiceExtensions
 {
-    private static readonly string[] Modules =
+    // Core shared modules — always present regardless of industry.
+    // Industry modules register their own permission names via IIndustryPermissionModule
+    // in their ServiceExtensions (e.g. FoodServiceExtensions.AddFoodModule).
+    private static readonly string[] CoreModules =
     [
         "POS", "Inventory", "ServiceTickets", "Purchasing",
-        "Clients", "Employees", "Reports", "Settings",
-        "Food", "Hotel", "Medical", "Jewelry"   // industry-specific modules
+        "Clients", "Employees", "Reports", "Settings"
     ];
 
     public static IServiceCollection AddPresentationServices(this IServiceCollection services, IConfiguration configuration)
@@ -32,9 +36,11 @@ public static class PresentationServiceExtensions
 
         // ── Permission-based authorization ────────────────────────────────────
         services.AddSingleton<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+        // Core module policies — always present
         services.AddAuthorization(options =>
         {
-            foreach (var module in Modules)
+            foreach (var module in CoreModules)
             {
                 options.AddPolicy(
                     $"{RequirePermissionAttribute.PolicyPrefix}{module}",
@@ -43,6 +49,11 @@ public static class PresentationServiceExtensions
                         .AddRequirements(new PermissionRequirement(module)));
             }
         });
+
+        // Industry module policies — registered lazily via PostConfigure so that
+        // modules added AFTER AddPresentationServices() are still discovered.
+        services.AddSingleton<IPostConfigureOptions<AuthorizationOptions>,
+            IndustryPermissionPostConfigure>();
         services.AddEndpointsApiExplorer();
 
         services.AddSwaggerGen(c =>
@@ -89,13 +100,17 @@ public static class PresentationServiceExtensions
             {
                 if (corsOrigins != null && corsOrigins.Length > 0)
                 {
-                    policy.AllowAnyOrigin()
+                    // Production: restrict to explicit origins — required for AllowCredentials()
+                    // AllowAnyOrigin() cannot be combined with AllowCredentials() — ASP.NET throws
+                    policy.WithOrigins(corsOrigins)
                           .AllowAnyMethod()
                           .AllowAnyHeader()
                           .AllowCredentials();
                 }
                 else
                 {
+                    // Development / no config: allow all origins
+                    // Must use SetIsOriginAllowed (not AllowAnyOrigin) to keep AllowCredentials()
                     policy.SetIsOriginAllowed(_ => true)
                           .AllowAnyMethod()
                           .AllowAnyHeader()

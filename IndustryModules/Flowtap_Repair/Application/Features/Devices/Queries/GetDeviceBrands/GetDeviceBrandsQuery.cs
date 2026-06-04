@@ -8,5 +8,7 @@ namespace Flowtap_Repair.Application.Features.Devices.Queries.GetDeviceBrands;
 public record GetDeviceBrandsQuery(
     Guid? ProductCategoryId,
     string? SearchTerm,
-    bool? IsActive) : IRequest<Result<List<DeviceBrandDto>>>;
+    bool? IsActive,
+    bool IncludeSubCategories = false)  // when true, also returns brands from child categories
+    : IRequest<Result<List<DeviceBrandDto>>>;
 

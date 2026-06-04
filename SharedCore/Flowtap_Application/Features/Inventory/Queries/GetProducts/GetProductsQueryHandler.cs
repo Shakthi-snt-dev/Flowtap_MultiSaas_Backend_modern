@@ -23,7 +23,24 @@ public class GetProductsQueryHandler(IApplicationDbContext db, ICurrentUserServi
             query = query.Where(p => p.IsActive == request.IsActive.Value);
 
         if (request.CategoryId.HasValue)
-            query = query.Where(p => p.CategoryId == request.CategoryId.Value);
+        {
+            if (request.IncludeSubCategories)
+            {
+                // Include products in the selected category AND all its direct children.
+                // Example: "Phone" (parent) selected → show 2 direct + 4 Android sub-cat products.
+                var childIds = await db.ProductCategories
+                    .Where(c => c.ParentCategoryId == request.CategoryId.Value && c.IsActive)
+                    .Select(c => c.Id)
+                    .ToListAsync(ct);
+
+                var allCategoryIds = childIds.Append(request.CategoryId.Value).ToList();
+                query = query.Where(p => allCategoryIds.Contains(p.CategoryId));
+            }
+            else
+            {
+                query = query.Where(p => p.CategoryId == request.CategoryId.Value);
+            }
+        }
 
         if (!string.IsNullOrWhiteSpace(request.Search))
             query = query.Where(p => p.Name.Contains(request.Search) || p.SKU.Contains(request.Search));
